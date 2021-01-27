@@ -95,7 +95,9 @@ static void systemTask(void *arg);
 /* Public functions */
 void systemLaunch(void)
 {
+  DEBUG_PRINT("Pre STATIC_MEM_TASK_CREATE\n");
   STATIC_MEM_TASK_CREATE(systemTask, systemTask, SYSTEM_TASK_NAME, NULL, SYSTEM_TASK_PRI);
+  DEBUG_PRINT("Post STATIC_MEM_TASK_CREATE\n");
 }
 
 // This must be the first module to be initialized!
@@ -108,12 +110,17 @@ void systemInit(void)
   xSemaphoreTake(canStartMutex, portMAX_DELAY);
 
   usblinkInit();
+  DEBUG_PRINT("usblink init\n");
   sysLoadInit();
+  DEBUG_PRINT("sysLoad init\n");
 
   /* Initialized here so that DEBUG_PRINT (buffered) can be used early */
   debugInit();
+  DEBUG_PRINT("debug init\n");
   crtpInit();
+  DEBUG_PRINT("crtp init\n");
   consoleInit();
+  DEBUG_PRINT("console init\n");
 
   DEBUG_PRINT("----------------------------\n");
   DEBUG_PRINT("%s is up and running!\n", platformConfigGetDeviceTypeName());
@@ -128,17 +135,27 @@ void systemInit(void)
               *((int*)(MCU_ID_ADDRESS+8)), *((int*)(MCU_ID_ADDRESS+4)),
               *((int*)(MCU_ID_ADDRESS+0)), *((short*)(MCU_FLASH_SIZE_ADDRESS)));
 
+  DEBUG_PRINT("before configblock init\n");
   configblockInit();
+  DEBUG_PRINT("config init\n");
   storageInit();
+  DEBUG_PRINT("storage init\n");
   workerInit();
+  DEBUG_PRINT("worker init\n");
   adcInit();
+  DEBUG_PRINT("adc init\n");
   ledseqInit();
+  DEBUG_PRINT("ledseq init\n");
   pmInit();
+  DEBUG_PRINT("pm init\n");
   buzzerInit();
+  DEBUG_PRINT("buzzer init\n");
   peerLocalizationInit();
+  DEBUG_PRINT("peer init\n");
 
 #ifdef APP_ENABLED
   appInit();
+  DEBUG_PRINT("app init\n");
 #endif
 
   isInit = true;

@@ -55,18 +55,18 @@ int main()
     while(1);
   }
   uart1Init(9600);
-  uint8_t testData[] = {97,65,66,67};
-  uart1SendData(13, testData);
-  //usblinkInit();
-  //sysLoadInit();
+  //uint8_t testData[] = {97,65,66,67};
+  //uart1SendData(13, testData);
+  ////usblinkInit();
+  ////sysLoadInit();
   debugInit();
-  DEBUG_PRINT("hej");
+  DEBUG_PRINT("Before systemLaunch\n");
 
   //Launch the system task that will initialize and start everything
-  //systemLaunch();
+  systemLaunch();
 
   //Start the FreeRTOS scheduler
-  //vTaskStartScheduler();
+  vTaskStartScheduler();
 
   //TODO: Move to platform launch failed
   //ledInit();
@@ -75,6 +75,7 @@ int main()
   
 
   //Should never reach this point!
+  DEBUG_PRINT("Should never reach this point! (When we are done...)");
   while(1);
 
   return 0;
