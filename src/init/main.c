@@ -42,25 +42,37 @@
 /* ST includes */
 #include "stm32fxxx.h"
 
+#include "debug.h"
+#include "uart1.h"
+
 int main() 
 {
+	
   //Initialize the platform.
   int err = platformInit();
   if (err != 0) {
     // The firmware is running on the wrong hardware. Halt
     while(1);
   }
+  uart1Init(9600);
+  uint8_t testData[] = {97,65,66,67};
+  uart1SendData(13, testData);
+  //usblinkInit();
+  //sysLoadInit();
+  debugInit();
+  DEBUG_PRINT("hej");
 
   //Launch the system task that will initialize and start everything
-  systemLaunch();
+  //systemLaunch();
 
   //Start the FreeRTOS scheduler
-  vTaskStartScheduler();
+  //vTaskStartScheduler();
 
   //TODO: Move to platform launch failed
-  ledInit();
-  ledSet(0, 1);
-  ledSet(1, 1);
+  //ledInit();
+  //ledSet(0, 1);
+  //ledSet(1, 1);
+  
 
   //Should never reach this point!
   while(1);
