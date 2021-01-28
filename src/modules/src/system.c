@@ -115,6 +115,7 @@ void systemLaunch(void)
     uart2Init(115200);
   #endif
 
+  systemInit();
 }
 
 // This must be the first module to be initialized!
