@@ -424,7 +424,6 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   // Copy message
   memcpy((char*)&i2c->txMessage, (char*)message, sizeof(I2cMessage));
   // We can now start the ISR sending this message.
-  DEBUG_PRINT("Before start transfer");
   i2cdrvStartTransfer(i2c);
   DEBUG_PRINT("Transfer done!\n");
   // Wait for transaction to be done
@@ -439,6 +438,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   {
     DEBUG_PRINT("Probably about to hang :(\n");
     i2cdrvClearDMA(i2c);
+    DEBUG_PRINT("halfway :(\n");
     i2cdrvTryToRestartBus(i2c);
     //TODO: If bus is really hanged... fail safe
     DEBUG_PRINT("Hanged........................");
