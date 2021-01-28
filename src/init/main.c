@@ -1,6 +1,6 @@
 /**
- *    ||          ____  _ __                           
- * +------+      / __ )(_) /_______________ _____  ___ 
+ *    ||          ____  _ __
+ * +------+      / __ )(_) /_______________ _____  ___
  * | 0xBC |     / __  / / __/ ___/ ___/ __ `/_  / / _ \
  * +------+    / /_/ / / /_/ /__/ /  / /_/ / / /_/  __/
  *  ||  ||    /_____/_/\__/\___/_/   \__,_/ /___/\___/
@@ -45,9 +45,9 @@
 #include "debug.h"
 #include "uart1.h"
 
-int main() 
+int main()
 {
-	
+
   //Initialize the platform.
   int err = platformInit();
   if (err != 0) {
@@ -63,16 +63,16 @@ int main()
   DEBUG_PRINT("Before systemLaunch\n");
 
   //Launch the system task that will initialize and start everything
-  systemLaunch();
+ // systemLaunch();
 
   //Start the FreeRTOS scheduler
-  vTaskStartScheduler();
+  //vTaskStartScheduler();
 
   //TODO: Move to platform launch failed
-  //ledInit();
-  //ledSet(0, 1);
-  //ledSet(1, 1);
-  
+  ledInit();
+  ledSet(0, 1);
+  ledSet(1, 1);
+
 
   //Should never reach this point!
   DEBUG_PRINT("Should never reach this point! (When we are done...)");
@@ -80,4 +80,3 @@ int main()
 
   return 0;
 }
-
