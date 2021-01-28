@@ -282,12 +282,14 @@ static void i2cdrvInitBus(I2cDrv* i2c)
   NVIC_InitTypeDef NVIC_InitStructure;
   GPIO_InitTypeDef GPIO_InitStructure;
 
+  DEBUG_PRINT(" 1");
   // Enable GPIOA clock
   RCC_AHB1PeriphClockCmd(i2c->def->gpioSDAPerif, ENABLE);
   RCC_AHB1PeriphClockCmd(i2c->def->gpioSCLPerif, ENABLE);
   // Enable I2C_SENSORS clock
   RCC_APB1PeriphClockCmd(i2c->def->i2cPerif, ENABLE);
 
+  DEBUG_PRINT(" 2");
   // Configure I2C_SENSORS pins to unlock bus.
   GPIO_StructInit(&GPIO_InitStructure);
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
@@ -298,8 +300,10 @@ static void i2cdrvInitBus(I2cDrv* i2c)
   GPIO_InitStructure.GPIO_Pin =  i2c->def->gpioSDAPin; // SDA
   GPIO_Init(i2c->def->gpioSDAPort, &GPIO_InitStructure);
 
+  DEBUG_PRINT(" 3");
   i2cdrvdevUnlockBus(i2c->def->gpioSCLPort, i2c->def->gpioSDAPort, i2c->def->gpioSCLPin, i2c->def->gpioSDAPin);
 
+  DEBUG_PRINT(" 4");
   // Configure I2C_SENSORS pins for AF.
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
   GPIO_InitStructure.GPIO_Pin = i2c->def->gpioSCLPin; // SCL
@@ -307,10 +311,12 @@ static void i2cdrvInitBus(I2cDrv* i2c)
   GPIO_InitStructure.GPIO_Pin =  i2c->def->gpioSDAPin; // SDA
   GPIO_Init(i2c->def->gpioSDAPort, &GPIO_InitStructure);
 
+  DEBUG_PRINT(" 5");
   //Map gpios to alternate functions
   GPIO_PinAFConfig(i2c->def->gpioSCLPort, i2c->def->gpioSCLPinSource, i2c->def->gpioAF);
   GPIO_PinAFConfig(i2c->def->gpioSDAPort, i2c->def->gpioSDAPinSource, i2c->def->gpioAF);
 
+  DEBUG_PRINT(" 6");
   // I2C_SENSORS configuration
   I2C_DeInit(i2c->def->i2cPort);
   I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
@@ -321,9 +327,11 @@ static void i2cdrvInitBus(I2cDrv* i2c)
   I2C_InitStructure.I2C_ClockSpeed = i2c->def->i2cClockSpeed;
   I2C_Init(i2c->def->i2cPort, &I2C_InitStructure);
 
+  DEBUG_PRINT(" 7");
   // Enable I2C_SENSORS error interrupts
   I2C_ITConfig(i2c->def->i2cPort, I2C_IT_ERR, ENABLE);
 
+  DEBUG_PRINT(" 8");
   NVIC_InitStructure.NVIC_IRQChannel = i2c->def->i2cEVIRQn;
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = NVIC_HIGH_PRI;
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
@@ -332,8 +340,10 @@ static void i2cdrvInitBus(I2cDrv* i2c)
   NVIC_InitStructure.NVIC_IRQChannel = i2c->def->i2cERIRQn;
   NVIC_Init(&NVIC_InitStructure);
 
+  DEBUG_PRINT(" 9");
   i2cdrvDmaSetupBus(i2c);
 
+  DEBUG_PRINT(" 10\n");
   i2c->isBusFreeSemaphore = xSemaphoreCreateBinaryStatic(&i2c->isBusFreeSemaphoreBuffer);
   i2c->isBusFreeMutex = xSemaphoreCreateMutexStatic(&i2c->isBusFreeMutexBuffer);
 }
