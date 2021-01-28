@@ -109,11 +109,11 @@ void systemInit(void)
   canStartMutex = xSemaphoreCreateMutexStatic(&canStartMutexBuffer);
   xSemaphoreTake(canStartMutex, portMAX_DELAY);
 
-  usblinkInit();
-  DEBUG_PRINT("usblink init\n");
+  //usblinkInit();
+  //DEBUG_PRINT("usblink init\n");
   sysLoadInit();
   DEBUG_PRINT("sysLoad init\n");
-
+  while(1);
   /* Initialized here so that DEBUG_PRINT (buffered) can be used early */
   debugInit();
   DEBUG_PRINT("debug init\n");
