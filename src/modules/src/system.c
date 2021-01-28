@@ -95,9 +95,9 @@ static void systemTask(void *arg);
 /* Public functions */
 void systemLaunch(void)
 {
-  DEBUG_PRINT("Pre STATIC_MEM_TASK_CREATE\n");
+  //DEBUG_PRINT("Pre STATIC_MEM_TASK_CREATE\n");
   STATIC_MEM_TASK_CREATE(systemTask, systemTask, SYSTEM_TASK_NAME, NULL, SYSTEM_TASK_PRI);
-  DEBUG_PRINT("Post STATIC_MEM_TASK_CREATE\n");
+  //DEBUG_PRINT("Post STATIC_MEM_TASK_CREATE\n");
 }
 
 // This must be the first module to be initialized!
