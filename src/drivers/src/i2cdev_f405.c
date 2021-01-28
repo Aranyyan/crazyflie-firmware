@@ -41,7 +41,7 @@
 
 int i2cdevInit(I2C_Dev *dev)
 {
-  DEBUG_PRINT("Going to run i2cdrvInit from i2cdev_f405")
+  DEBUG_PRINT("Going to run i2cdrvInit from i2cdev_f405");
   i2cdrvInit(dev);
 
   return true;
