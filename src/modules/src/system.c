@@ -111,7 +111,6 @@ void systemInit(void)
 
   usblinkInit();
   DEBUG_PRINT("usblink init\n");
-  while(1);
   sysLoadInit();
   DEBUG_PRINT("sysLoad init\n");
   /* Initialized here so that DEBUG_PRINT (buffered) can be used early */
