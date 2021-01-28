@@ -96,8 +96,24 @@ static void systemTask(void *arg);
 void systemLaunch(void)
 {
   //DEBUG_PRINT("Pre STATIC_MEM_TASK_CREATE\n");
-  STATIC_MEM_TASK_CREATE(systemTask, systemTask, SYSTEM_TASK_NAME, NULL, SYSTEM_TASK_PRI);
+  //STATIC_MEM_TASK_CREATE(systemTask, systemTask, SYSTEM_TASK_NAME, NULL, SYSTEM_TASK_PRI);
   //DEBUG_PRINT("Post STATIC_MEM_TASK_CREATE\n");
+  bool pass = true;
+
+  ledInit();
+  ledSet(CHG_LED, 1);
+
+  #ifdef DEBUG_QUEUE_MONITOR
+    queueMonitorInit();
+  #endif
+
+  #ifdef ENABLE_UART1
+    uart1Init(9600);
+  #endif
+  #ifdef ENABLE_UART2
+    uart2Init(115200);
+  #endif
+
 }
 
 // This must be the first module to be initialized!

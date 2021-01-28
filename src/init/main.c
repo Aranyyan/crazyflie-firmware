@@ -63,15 +63,15 @@ int main()
   DEBUG_PRINT("Before systemLaunch\n");
 
   //Launch the system task that will initialize and start everything
- // systemLaunch();
+  systemLaunch();
 
   //Start the FreeRTOS scheduler
   //vTaskStartScheduler();
 
   //TODO: Move to platform launch failed
-  ledInit();
-  ledSet(0, 1);
-  ledSet(1, 1);
+  //ledInit();
+  //ledSet(0, 1);
+  //ledSet(1, 1);
 
 
   //Should never reach this point!
