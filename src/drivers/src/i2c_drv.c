@@ -240,6 +240,7 @@ static void i2cNotifyClient(I2cDrv* i2c)
 
 static void i2cdrvTryToRestartBus(I2cDrv* i2c)
 {
+  DEBUG_PRINT("About to run i2cdrvInitBus from i2cdrvTryToRestartBus\n");
   i2cdrvInitBus(i2c);
 }
 
@@ -276,6 +277,7 @@ static void i2cdrvDmaSetupBus(I2cDrv* i2c)
 
 static void i2cdrvInitBus(I2cDrv* i2c)
 {
+  DEBUG_PRINT("i2cdrvInitBus started\n");
   I2C_InitTypeDef  I2C_InitStructure;
   NVIC_InitTypeDef NVIC_InitStructure;
   GPIO_InitTypeDef GPIO_InitStructure;
@@ -375,6 +377,7 @@ static void i2cdrvdevUnlockBus(GPIO_TypeDef* portSCL, GPIO_TypeDef* portSDA, uin
 
 void i2cdrvInit(I2cDrv* i2c)
 {
+  DEBUG_PRINT("About to run i2cdrvInitBus from i2cdrvInit\n");
   i2cdrvInitBus(i2c);
 }
 
