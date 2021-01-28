@@ -319,12 +319,14 @@ static void i2cdrvInitBus(I2cDrv* i2c)
   DEBUG_PRINT(" 6");
   // I2C_SENSORS configuration
   I2C_DeInit(i2c->def->i2cPort);
+  DEBUG_PRINT(" 6.1");
   I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
   I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;
   I2C_InitStructure.I2C_OwnAddress1 = I2C_SLAVE_ADDRESS7;
   I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
   I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
   I2C_InitStructure.I2C_ClockSpeed = i2c->def->i2cClockSpeed;
+  DEBUG_PRINT(" 6.2");
   I2C_Init(i2c->def->i2cPort, &I2C_InitStructure);
 
   DEBUG_PRINT(" 7");
