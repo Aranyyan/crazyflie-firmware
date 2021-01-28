@@ -52,6 +52,8 @@
 #ifdef I2CDRV_DEBUG_LOG_EVENTS
 #include "usec_time.h"
 #endif
+// Added
+#include "debug.h"
 
 // Definitions of sensors I2C bus
 #define I2C_DEFAULT_SENSORS_CLOCK_SPEED             400000
@@ -422,7 +424,9 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   // Copy message
   memcpy((char*)&i2c->txMessage, (char*)message, sizeof(I2cMessage));
   // We can now start the ISR sending this message.
+  DEBUG_PRINT("Before start transfer");
   i2cdrvStartTransfer(i2c);
+  DEBUG_PRINT("Transfer done!\n");
   // Wait for transaction to be done
   if (xSemaphoreTake(i2c->isBusFreeSemaphore, I2C_MESSAGE_TIMEOUT) == pdTRUE)
   {
@@ -433,9 +437,11 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   }
   else
   {
+    DEBUG_PRINT("Probably about to hang :(\n");
     i2cdrvClearDMA(i2c);
     i2cdrvTryToRestartBus(i2c);
     //TODO: If bus is really hanged... fail safe
+    DEBUG_PRINT("Hanged........................");
   }
   xSemaphoreGive(i2c->isBusFreeMutex);
 
