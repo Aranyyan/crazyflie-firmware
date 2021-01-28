@@ -1,6 +1,6 @@
 /**
- *    ||          ____  _ __                           
- * +------+      / __ )(_) /_______________ _____  ___ 
+ *    ||          ____  _ __
+ * +------+      / __ )(_) /_______________ _____  ___
  * | 0xBC |     / __  / / __/ ___/ ___/ __ `/_  / / _ \
  * +------+    / /_/ / / /_/ /__/ /  / /_/ / / /_/  __/
  *  ||  ||    /_____/_/\__/\___/_/   \__,_/ /___/\___/
@@ -110,7 +110,7 @@ static uint8_t calculate_cksum(void* data, size_t len)
   unsigned char* c = data;
   int i;
   unsigned char cksum=0;
-  
+
   for (i=0; i<len; i++)
     cksum += *(c++);
 
@@ -122,7 +122,7 @@ int configblockInit(void)
   if(isInit)
     return 0;
 
-  
+
   DEBUG_PRINT("Before init\n");
   i2cdevInit(I2C1_DEV);
   DEBUG_PRINT("i2cdev init\n");
@@ -179,15 +179,18 @@ int configblockInit(void)
       }
     }
   }
-
+  DEBUG_PRINT("Since automatically FALSE, skips all ifs?\n");
   if (cb_ok == false)
   {
     // Copy default data to used structure.
+    DEBUG_PRINT("Before memcpy");
     memcpy((uint8_t *)&configblock, (uint8_t *)&configblockDefault, sizeof(configblock));
+    DEBUG_PRINT("After memcpy");
     // Write default configuration to eeprom
     if (configblockWrite(&configblockDefault))
     {
       cb_ok = true;
+      DEBUG_PRINT("cb_ok = true");
     }
     else
     {
