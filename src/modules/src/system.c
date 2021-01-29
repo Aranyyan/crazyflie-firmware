@@ -95,13 +95,13 @@ static void systemTask(void *arg);
 /* Public functions */
 void systemLaunch(void)
 {
-  //DEBUG_PRINT("Pre STATIC_MEM_TASK_CREATE\n");
-  if(0)
-    STATIC_MEM_TASK_CREATE(systemTask, systemTask, SYSTEM_TASK_NAME, NULL, SYSTEM_TASK_PRI);
+  /*//DEBUG_PRINT("Pre STATIC_MEM_TASK_CREATE\n");
+  if(0)*/
+  STATIC_MEM_TASK_CREATE(systemTask, systemTask, SYSTEM_TASK_NAME, NULL, SYSTEM_TASK_PRI);
   //DEBUG_PRINT("Post STATIC_MEM_TASK_CREATE\n");
-  //bool pass = true;
+  bool pass = true;
 
-  ledInit();
+  /*ledInit();
   ledSet(CHG_LED, 1);
 
   #ifdef DEBUG_QUEUE_MONITOR
@@ -115,7 +115,7 @@ void systemLaunch(void)
     uart2Init(115200);
   #endif
 
-  systemInit();
+  systemInit();*/
 }
 
 // This must be the first module to be initialized!
