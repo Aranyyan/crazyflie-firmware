@@ -210,20 +210,29 @@ void systemTask(void *arg)
 
   //Init the high-levels modules
   systemInit();
+  DEBUG_PRINT("Passed through systemInit()\n");
   commInit();
+  DEBUG_PRINT("comm init\n");
   commanderInit();
+  DEBUG_PRINT("commander init\n");
 
   StateEstimatorType estimator = anyEstimator;
   estimatorKalmanTaskInit();
+  DEBUG_PRINT("Kalman estimator init\n"),
   deckInit();
+  DEBUG_PRINT("deck init");
   estimator = deckGetRequiredEstimator();
+  DEBUG_PRINT("Got estimator...");
   stabilizerInit(estimator);
+  DEBUG_PRINT("stabilizer init");
   if (deckGetRequiredLowInterferenceRadioMode() && platformConfigPhysicalLayoutAntennasAreClose())
   {
     platformSetLowInterferenceRadioMode();
   }
   soundInit();
+  DEBUG_PRINT("sound init\n");
   memInit();
+  DEBUG_PRINT("mem init\n");
 
 #ifdef PROXIMITY_ENABLED
   proximityInit();
