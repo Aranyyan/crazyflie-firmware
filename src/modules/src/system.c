@@ -99,7 +99,6 @@ void systemLaunch(void)
   if(0)*/
   STATIC_MEM_TASK_CREATE(systemTask, systemTask, SYSTEM_TASK_NAME, NULL, SYSTEM_TASK_PRI);
   //DEBUG_PRINT("Post STATIC_MEM_TASK_CREATE\n");
-  bool pass = true;
 
   /*ledInit();
   ledSet(CHG_LED, 1);
