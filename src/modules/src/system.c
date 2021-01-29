@@ -151,10 +151,9 @@ void systemInit(void)
               *((int*)(MCU_ID_ADDRESS+8)), *((int*)(MCU_ID_ADDRESS+4)),
               *((int*)(MCU_ID_ADDRESS+0)), *((short*)(MCU_FLASH_SIZE_ADDRESS)));
 
-  //DEBUG_PRINT("before configblock init\n");
   //configblockInit();
   //DEBUG_PRINT("config init\n");
-  storageInit();
+  storageInit(); // Only semaphore
   DEBUG_PRINT("storage init\n");
   workerInit();
   DEBUG_PRINT("worker init\n");
@@ -164,16 +163,20 @@ void systemInit(void)
   DEBUG_PRINT("ledseq init\n");
   pmInit();
   DEBUG_PRINT("pm init\n");
-  buzzerInit();
+  buzzerInit(); // Literally nothing
   DEBUG_PRINT("buzzer init\n");
-  peerLocalizationInit();
+  peerLocalizationInit(); // Literally nothing
   DEBUG_PRINT("peer init\n");
 
 #ifdef APP_ENABLED
-  appInit();
+  appInit(); // NOT ENABLED BY DEFAULT
   DEBUG_PRINT("app init\n");
 #endif
 
+  DEBUG_PRINT("ledseqtest %d\t", ledseqTest());
+  DEBUG_PRINT("pmtest %d\t", pmTest());
+  DEBUG_PRINT("workertest %d\t", workerTest());
+  DEBUG_PRINT("buzzertest %d\t", buzzerTest());
   isInit = true;
 }
 
