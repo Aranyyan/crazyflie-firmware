@@ -176,7 +176,7 @@ void systemInit(void)
   DEBUG_PRINT("ledseqtest %d\t", ledseqTest());
   DEBUG_PRINT("pmtest %d\t", pmTest());
   DEBUG_PRINT("workertest %d\t", workerTest());
-  DEBUG_PRINT("buzzertest %d\t", buzzerTest());
+  DEBUG_PRINT("buzzertest %d\n", buzzerTest());
   isInit = true;
 }
 
