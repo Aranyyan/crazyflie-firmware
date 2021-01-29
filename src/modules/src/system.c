@@ -151,9 +151,9 @@ void systemInit(void)
               *((int*)(MCU_ID_ADDRESS+8)), *((int*)(MCU_ID_ADDRESS+4)),
               *((int*)(MCU_ID_ADDRESS+0)), *((short*)(MCU_FLASH_SIZE_ADDRESS)));
 
-  DEBUG_PRINT("before configblock init\n");
-  configblockInit();
-  DEBUG_PRINT("config init\n");
+  //DEBUG_PRINT("before configblock init\n");
+  //configblockInit();
+  //DEBUG_PRINT("config init\n");
   storageInit();
   DEBUG_PRINT("storage init\n");
   workerInit();
