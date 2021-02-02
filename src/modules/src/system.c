@@ -215,14 +215,13 @@ void systemTask(void *arg)
   //Init the high-levels modules
   systemInit();
   DEBUG_PRINT("Passed through systemInit()\n");
-  commInit();
+  commInit(); // Radio?
   DEBUG_PRINT("comm init\n");
-  DEBUG_PRINT("commTest: %d\n", commTest());
-  commanderInit();
+  commanderInit(); // ???
   DEBUG_PRINT("commander init\n");
 
   StateEstimatorType estimator = anyEstimator;
-  estimatorKalmanTaskInit();
+  estimatorKalmanTaskInit(); // Software, functional but not usable without sensors
   DEBUG_PRINT("Kalman estimator init\n"),
   deckInit();
   DEBUG_PRINT("deck init");
