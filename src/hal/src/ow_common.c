@@ -26,6 +26,7 @@
 
 #include "ow.h"
 #include "mem.h"
+#include "debug.h"
 
 static bool handleMemGetSerialNr(const uint8_t selectedMem, uint8_t* serialNr);
 static bool handleMemRead(const uint8_t selectedMem, const uint32_t memAddr, const uint8_t readLen, uint8_t* startOfData);
@@ -46,8 +47,11 @@ void owCommonInit() {
     return;
   }
 
+  DEBUG_PRINT("owCommonInit\n");
   owScan(&memHandlerDef.nrOfMems);
+  DEBUG_PRINT("owScan passed\n");
   memoryRegisterOwHandler(&memHandlerDef);
+  DEBUG_PRINT("memoryRegisterOwHandler passed\towCommonInit finished!\n");
 
   isInit = true;
 }
