@@ -155,9 +155,10 @@ void systemInit(void)
   //DEBUG_PRINT("config init\n");
   storageInit(); // Only semaphore
   DEBUG_PRINT("storage init\n");
-  workerInit();
+  workerInit(); // Seems to be only software
   DEBUG_PRINT("worker init\n");
-  adcInit();
+  adcInit(); // Implement as python peripheral?
+  // adcInit writes some reset signals to registers and enables ADC2
   DEBUG_PRINT("adc init\n");
   ledseqInit();
   DEBUG_PRINT("ledseq init\n");
@@ -216,6 +217,7 @@ void systemTask(void *arg)
   DEBUG_PRINT("Passed through systemInit()\n");
   commInit();
   DEBUG_PRINT("comm init\n");
+  DEBUG_PRINT("commTest: %d\n", commTest());
   commanderInit();
   DEBUG_PRINT("commander init\n");
 
