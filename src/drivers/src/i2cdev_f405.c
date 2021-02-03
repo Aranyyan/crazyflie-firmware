@@ -105,8 +105,8 @@ bool i2cdevReadReg16(I2C_Dev *dev, uint8_t devAddress, uint16_t memAddress,
                      uint16_t len, uint8_t *data)
 {
   I2cMessage message;
-  DEBUG_PRINT("Creating message address... Device 0x%x\tMemory 0x%x\tLength 0x%x\tData 0x%lx\n",
-              devAddress, memAddress, len, (uint32_t)data);
+  DEBUG_PRINT("Creating message address... Device 0x%x  Memory 0x%lx  Length 0x%x  Data 0x%lx\n",
+              devAddress, (uint32_t)memAddress, len, (uint32_t)data);
   i2cdrvCreateMessageIntAddr(&message, devAddress, true, memAddress,
                           i2cRead, len, data);
   DEBUG_PRINT("Done!\n");
