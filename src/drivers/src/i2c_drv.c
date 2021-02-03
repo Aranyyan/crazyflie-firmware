@@ -214,6 +214,7 @@ static void i2cdrvStartTransfer(I2cDrv *i2c)
 
   if (i2c->txMessage.direction == i2cRead)
   {
+    DEBUG_PRINT("Will receive data\n");
     i2c->DMAStruct.DMA_BufferSize = i2c->txMessage.messageLength;
     i2c->DMAStruct.DMA_Memory0BaseAddr = (uint32_t)i2c->txMessage.buffer;
     DMA_Init(i2c->def->dmaRxStream, &i2c->DMAStruct);
@@ -440,7 +441,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   memcpy((char*)&i2c->txMessage, (char*)message, sizeof(I2cMessage));
   // We can now start the ISR sending this message.
   i2cdrvStartTransfer(i2c);
-  DEBUG_PRINT("Transfer done!\n");
+  DEBUG_PRINT("Transfer of 0x%x units of data done!\n", message->messageLength);
   // Wait for transaction to be done
   if (xSemaphoreTake(i2c->isBusFreeSemaphore, I2C_MESSAGE_TIMEOUT) == pdTRUE)
   {
