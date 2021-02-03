@@ -151,6 +151,7 @@ static bool owSyslinkTransfer(uint8_t type, uint8_t length)
   slp.length = length;
   memcpy(slp.data, &owCmdBuf, length);
 
+  DEBUG_PRINT("About to send via syslinkSendPacket\n")
   syslinkSendPacket(&slp);
   // Wait for reply
   if (xSemaphoreTake(waitForReply, M2T(5000)) == pdTRUE)
