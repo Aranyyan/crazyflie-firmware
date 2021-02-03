@@ -220,12 +220,12 @@ void systemTask(void *arg)
   commanderInit(); // ???
   DEBUG_PRINT("commander init\n");
 
-  StateEstimatorType estimator = anyEstimator;
+  //StateEstimatorType estimator = anyEstimator;
   estimatorKalmanTaskInit(); // Software, functional but not usable without sensors
   DEBUG_PRINT("Kalman estimator init\n"),
   deckInit();
   DEBUG_PRINT("deck init");
-  estimator = deckGetRequiredEstimator();
+  //estimator = deckGetRequiredEstimator();
   DEBUG_PRINT("Got estimator...");
 //  stabilizerInit(estimator);
 //  DEBUG_PRINT("stabilizer init");
