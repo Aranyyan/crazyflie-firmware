@@ -441,7 +441,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   memcpy((char*)&i2c->txMessage, (char*)message, sizeof(I2cMessage));
   // We can now start the ISR sending this message.
   i2cdrvStartTransfer(i2c);
-  DEBUG_PRINT("Transfer of 0x%x units of data done!\n", message->messageLength);
+  DEBUG_PRINT("Transfer of %lu units of data done!\n", message->messageLength);
   // Wait for transaction to be done
   if (xSemaphoreTake(i2c->isBusFreeSemaphore, I2C_MESSAGE_TIMEOUT) == pdTRUE)
   {
