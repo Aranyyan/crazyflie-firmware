@@ -151,8 +151,8 @@ void systemInit(void)
               *((int*)(MCU_ID_ADDRESS+8)), *((int*)(MCU_ID_ADDRESS+4)),
               *((int*)(MCU_ID_ADDRESS+0)), *((short*)(MCU_FLASH_SIZE_ADDRESS)));
 
-  //configblockInit();
-  //DEBUG_PRINT("config init\n");
+  configblockInit();
+  DEBUG_PRINT("config init\n");
   storageInit(); // Only semaphore
   DEBUG_PRINT("storage init\n");
   workerInit(); // Seems to be only software
