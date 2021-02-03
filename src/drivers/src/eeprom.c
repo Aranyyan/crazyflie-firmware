@@ -133,7 +133,7 @@ bool eepromTestConnection(void)
     return false;
 
   DEBUG_PRINT("Before i2cdevRead16...");
-  status = i2cdevRead16(I2Cx, devAddr, 0+1, 1, &tmp);
+  status = i2cdevRead16(I2Cx, devAddr, 0, 1, &tmp);
   DEBUG_PRINT(" Passed!\n");
 
   return status;
