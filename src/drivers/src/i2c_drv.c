@@ -214,7 +214,7 @@ static void i2cdrvStartTransfer(I2cDrv *i2c)
 
   if (i2c->txMessage.direction == i2cRead)
   {
-    DEBUG_PRINT("Will receive data\n");
+    DEBUG_PRINT("Will receive data, 0x%lx bytes at address 0x%x\n", i2c->txMessage.messageLength, i2c->txMessage.buffer);
     i2c->DMAStruct.DMA_BufferSize = i2c->txMessage.messageLength;
     i2c->DMAStruct.DMA_Memory0BaseAddr = (uint32_t)i2c->txMessage.buffer;
     DMA_Init(i2c->def->dmaRxStream, &i2c->DMAStruct);
