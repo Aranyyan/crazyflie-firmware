@@ -227,15 +227,15 @@ void systemTask(void *arg)
   DEBUG_PRINT("deck init");
   estimator = deckGetRequiredEstimator();
   DEBUG_PRINT("Got estimator...");
-  stabilizerInit(estimator);
-  DEBUG_PRINT("stabilizer init");
-  if (deckGetRequiredLowInterferenceRadioMode() && platformConfigPhysicalLayoutAntennasAreClose())
-  {
-    platformSetLowInterferenceRadioMode();
-  }
-  soundInit();
+//  stabilizerInit(estimator);
+//  DEBUG_PRINT("stabilizer init");
+//  if (deckGetRequiredLowInterferenceRadioMode() && platformConfigPhysicalLayoutAntennasAreClose())
+//  {
+//    platformSetLowInterferenceRadioMode();
+//  }
+  soundInit(); // Software
   DEBUG_PRINT("sound init\n");
-  memInit();
+  memInit(); // Uses CRTP
   DEBUG_PRINT("mem init\n");
 
 #ifdef PROXIMITY_ENABLED
