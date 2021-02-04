@@ -95,26 +95,7 @@ static void systemTask(void *arg);
 /* Public functions */
 void systemLaunch(void)
 {
-  /*//DEBUG_PRINT("Pre STATIC_MEM_TASK_CREATE\n");
-  if(0)*/
   STATIC_MEM_TASK_CREATE(systemTask, systemTask, SYSTEM_TASK_NAME, NULL, SYSTEM_TASK_PRI);
-  //DEBUG_PRINT("Post STATIC_MEM_TASK_CREATE\n");
-
-  /*ledInit();
-  ledSet(CHG_LED, 1);
-
-  #ifdef DEBUG_QUEUE_MONITOR
-    queueMonitorInit();
-  #endif
-
-  #ifdef ENABLE_UART1
-    uart1Init(9600);
-  #endif
-  #ifdef ENABLE_UART2
-    uart2Init(115200);
-  #endif
-
-  systemInit();*/
 }
 
 // This must be the first module to be initialized!
@@ -129,14 +110,14 @@ void systemInit(void)
   //usblinkInit();
   //DEBUG_PRINT("usblink init\n");
   sysLoadInit();
-  DEBUG_PRINT("sysLoad init\n");
+  //DEBUG_PRINT("sysLoad init\n");
   /* Initialized here so that DEBUG_PRINT (buffered) can be used early */
   debugInit();
-  DEBUG_PRINT("debug init\n");
+  //DEBUG_PRINT("debug init\n");
   crtpInit();
-  DEBUG_PRINT("crtp init\n");
+  //DEBUG_PRINT("crtp init\n");
   consoleInit();
-  DEBUG_PRINT("console init\n");
+  //DEBUG_PRINT("console init\n");
 
   DEBUG_PRINT("----------------------------\n");
   DEBUG_PRINT("%s is up and running!\n", platformConfigGetDeviceTypeName());
@@ -154,30 +135,30 @@ void systemInit(void)
   configblockInit();
   DEBUG_PRINT("config init\n");
   storageInit(); // Only semaphore
-  DEBUG_PRINT("storage init\n");
+  //DEBUG_PRINT("storage init\n");
   workerInit(); // Seems to be only software
-  DEBUG_PRINT("worker init\n");
+  //DEBUG_PRINT("worker init\n");
   adcInit(); // Implement as python peripheral?
   // adcInit writes some reset signals to registers and enables ADC2
-  DEBUG_PRINT("adc init\n");
+  //DEBUG_PRINT("adc init\n");
   ledseqInit();
-  DEBUG_PRINT("ledseq init\n");
+  //DEBUG_PRINT("ledseq init\n");
   pmInit();
-  DEBUG_PRINT("pm init\n");
+  //DEBUG_PRINT("pm init\n");
   buzzerInit(); // Literally nothing
-  DEBUG_PRINT("buzzer init\n");
+  //DEBUG_PRINT("buzzer init\n");
   peerLocalizationInit(); // Literally nothing
-  DEBUG_PRINT("peer init\n");
+  //DEBUG_PRINT("peer init\n");
 
 #ifdef APP_ENABLED
   appInit(); // NOT ENABLED BY DEFAULT
-  DEBUG_PRINT("app init\n");
+  //DEBUG_PRINT("app init\n");
 #endif
 
-  DEBUG_PRINT("ledseqtest %d\t", ledseqTest());
+  /*DEBUG_PRINT("ledseqtest %d\t", ledseqTest());
   DEBUG_PRINT("pmtest %d\t", pmTest());
   DEBUG_PRINT("workertest %d\t", workerTest());
-  DEBUG_PRINT("buzzertest %d\n", buzzerTest());
+  DEBUG_PRINT("buzzertest %d\n", buzzerTest());*/
   isInit = true;
 }
 
@@ -216,17 +197,17 @@ void systemTask(void *arg)
   systemInit();
   DEBUG_PRINT("Passed through systemInit()\n");
   commInit(); // Radio?
-  DEBUG_PRINT("comm init\n");
+  //DEBUG_PRINT("comm init\n");
   commanderInit(); // ???
-  DEBUG_PRINT("commander init\n");
+  //DEBUG_PRINT("commander init\n");
 
   //StateEstimatorType estimator = anyEstimator;
   estimatorKalmanTaskInit(); // Software, functional but not usable without sensors
-  DEBUG_PRINT("Kalman estimator init\n"),
-  deckInit();
-  DEBUG_PRINT("deck init");
+  //DEBUG_PRINT("Kalman estimator init\n"),
+  deckInit(); // 1-wire...?
+  DEBUG_PRINT("deck init\n");
   //estimator = deckGetRequiredEstimator();
-  DEBUG_PRINT("Got estimator...");
+  //DEBUG_PRINT("Got estimator...");
 //  stabilizerInit(estimator);
 //  DEBUG_PRINT("stabilizer init");
 //  if (deckGetRequiredLowInterferenceRadioMode() && platformConfigPhysicalLayoutAntennasAreClose())
@@ -234,9 +215,9 @@ void systemTask(void *arg)
 //    platformSetLowInterferenceRadioMode();
 //  }
   soundInit(); // Software
-  DEBUG_PRINT("sound init\n");
+  //DEBUG_PRINT("sound init\n");
   memInit(); // Uses CRTP
-  DEBUG_PRINT("mem init\n");
+  //DEBUG_PRINT("mem init\n");
 
 #ifdef PROXIMITY_ENABLED
   proximityInit();
