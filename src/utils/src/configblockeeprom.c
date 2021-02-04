@@ -135,6 +135,7 @@ int configblockInit(void)
 
   if (eepromTestConnection())
   {
+    DEBUG_PRINT("Second eepromTestConnection returned true\n");
     if (eepromReadBuffer((uint8_t *)&configblock, 0, sizeof(configblock)))
     {
       //Verify the config block
@@ -179,18 +180,17 @@ int configblockInit(void)
       }
     }
   }
-  DEBUG_PRINT("Since automatically FALSE, skips all ifs?\n");
+  DEBUG_PRINT("cb_ok=%u\n", cb_ok);
   if (cb_ok == false)
   {
     // Copy default data to used structure.
-    DEBUG_PRINT("Before memcpy");
+    DEBUG_PRINT("Going to write the default configblock\n");
     memcpy((uint8_t *)&configblock, (uint8_t *)&configblockDefault, sizeof(configblock));
-    DEBUG_PRINT("After memcpy");
     // Write default configuration to eeprom
     if (configblockWrite(&configblockDefault))
     {
       cb_ok = true;
-      DEBUG_PRINT("cb_ok = true");
+      DEBUG_PRINT("cb_ok = true\n");
     }
     else
     {

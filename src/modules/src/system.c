@@ -222,21 +222,34 @@ void systemTask(void *arg)
 #ifdef PROXIMITY_ENABLED
   proximityInit();
 #endif
-
+  DEBUG_PRINT("Time to run tests!\n");
   //Test the modules
   pass &= systemTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= configblockTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= storageTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= commTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= commanderTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= stabilizerTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= estimatorKalmanTaskTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= deckTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= soundTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= memTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= watchdogNormalStartTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= cfAssertNormalStartTest();
+  DEBUG_PRINT("%u\n",pass);
   pass &= peerLocalizationTest();
+  DEBUG_PRINT("%u\n",pass);
 
   //Start the firmware
   if(pass)

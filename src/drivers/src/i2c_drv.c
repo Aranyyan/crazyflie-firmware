@@ -448,7 +448,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
     //DEBUG_PRINT("halfway :(\n");
     i2cdrvTryToRestartBus(i2c);
     //TODO: If bus is really hanged... fail safe
-    DEBUG_PRINT("Hanged........................");
+    DEBUG_PRINT("i2cdrv.c: bus restarted\n");
   }
   xSemaphoreGive(i2c->isBusFreeMutex);
 
