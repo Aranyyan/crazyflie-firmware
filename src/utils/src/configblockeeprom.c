@@ -129,10 +129,10 @@ int configblockInit(void)
   eepromInit(I2C1_DEV);
   DEBUG_PRINT("eeprom init\n");
 
-  uint8_t counter = 0;
+  /*uint8_t counter = 0;
   while(!eepromTestConnection())
-    DEBUG_PRINT("eepromTestConnection iteration %u\n", ++counter);
-  DEBUG_PRINT("Ops, we left eepromTestConnection!\n");
+    DEBUG_PRINT("eepromTestConnection iteration %u\nS", ++counter);
+  DEBUG_PRINT("Ops, we left eepromTestConnection!\n");*/
   // Because of strange behavior from I2C device during expansion port test
   // the first read needs to be discarded
   eepromTestConnection();
