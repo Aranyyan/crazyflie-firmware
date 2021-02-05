@@ -432,7 +432,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   i2cdrvStartTransfer(i2c);
   DEBUG_PRINT("i2c_drv.c:Transfer of %lu units of data done!\t", message->messageLength);
   // Wait for transaction to be done
-  if (xSemaphoreTake(i2c->isBusFreeSemaphore, I2C_MESSAGE_TIMEOUT*10) == pdTRUE)
+  if (xSemaphoreTake(i2c->isBusFreeSemaphore, I2C_MESSAGE_TIMEOUT) == pdTRUE)
   {
     DEBUG_PRINT("Took semaphore\n");
     if (i2c->txMessage.status == i2cAck)
@@ -536,6 +536,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
   // Byte transfer finished
   else if (SR1 & I2C_SR1_BTF)
   {
+    // READS STATUS REGISTER 2
     SR2 = i2c->def->i2cPort->SR2;
     if (SR2 & I2C_SR2_TRA) // In write mode?
     {
@@ -640,8 +641,10 @@ static void i2cdrvClearDMA(I2cDrv* i2c)
 
 static void i2cdrvDmaIsrHandler(I2cDrv* i2c)
 {
+  DEBUG_PRINT("i2cdrvDmaIsrHandler, ");
   if (DMA_GetFlagStatus(i2c->def->dmaRxStream, i2c->def->dmaRxTCFlag)) // Tranasfer complete
   {
+    DEBUG_PRINT("transfer complete, ");
     i2cdrvClearDMA(i2c);
     i2cNotifyClient(i2c);
     // Are there any other messages to transact?
@@ -649,12 +652,14 @@ static void i2cdrvDmaIsrHandler(I2cDrv* i2c)
   }
   if (DMA_GetFlagStatus(i2c->def->dmaRxStream, i2c->def->dmaRxTEFlag)) // Transfer error
   {
+    DEBUG_PRINT("transfer error ");
     DMA_ClearITPendingBit(i2c->def->dmaRxStream, i2c->def->dmaRxTEFlag);
     //TODO: Best thing we could do?
     i2c->txMessage.status = i2cNack;
     i2cNotifyClient(i2c);
     i2cTryNextMessage(i2c);
   }
+  DEBUG_PRINT("\n");
 }
 
 
