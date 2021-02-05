@@ -433,6 +433,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   i2cdrvStartTransfer(i2c);
   DEBUG_PRINT("i2c_drv.c:Transfer of %lu units of data started!\t", message->messageLength);
   // Wait for transaction to be done
+  xSemaphoreGive(i2c->isBusFreeSemaphore);
   if (xSemaphoreTake(i2c->isBusFreeSemaphore, I2C_MESSAGE_TIMEOUT) == pdTRUE)
   {
     DEBUG_PRINT("Took semaphore\n");
