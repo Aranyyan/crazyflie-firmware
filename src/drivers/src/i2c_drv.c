@@ -234,6 +234,7 @@ static void i2cTryNextMessage(I2cDrv* i2c)
 
 static void i2cNotifyClient(I2cDrv* i2c)
 {
+  DEBUG_PRINT("Ran i2cNotifyClient! :D\n");
   portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
   xSemaphoreGiveFromISR(i2c->isBusFreeSemaphore, &xHigherPriorityTaskWoken);
   portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
