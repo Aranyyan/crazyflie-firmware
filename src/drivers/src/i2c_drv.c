@@ -431,7 +431,6 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   memcpy((char*)&i2c->txMessage, (char*)message, sizeof(I2cMessage));
   // We can now start the ISR sending this message.
   i2cdrvStartTransfer(i2c);
-  while(1);
   DEBUG_PRINT("i2c_drv.c:Transfer of %lu units of data started!\t", message->messageLength);
   // Wait for transaction to be done
   /*static bool first = true;
@@ -442,6 +441,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   if (xSemaphoreTake(i2c->isBusFreeSemaphore, I2C_MESSAGE_TIMEOUT) == pdTRUE)
   {
     DEBUG_PRINT("Took semaphore\n");
+    while(1);
     if (i2c->txMessage.status == i2cAck)
     {
       status = true;
@@ -450,6 +450,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   else
   {
     DEBUG_PRINT("Failed to take semaphore\n");
+    while(1);
     //DEBUG_PRINT("Probably about to hang :(\n");
     i2cdrvClearDMA(i2c);
     //DEBUG_PRINT("halfway :(\n");
