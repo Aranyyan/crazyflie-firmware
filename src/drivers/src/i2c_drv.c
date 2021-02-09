@@ -441,7 +441,6 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   if (xSemaphoreTake(i2c->isBusFreeSemaphore, I2C_MESSAGE_TIMEOUT) == pdTRUE)
   {
     DEBUG_PRINT("Took semaphore\n");
-    while(1);
     if (i2c->txMessage.status == i2cAck)
     {
       status = true;
@@ -450,7 +449,6 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   else
   {
     DEBUG_PRINT("Failed to take semaphore\n");
-    while(1);
     //DEBUG_PRINT("Probably about to hang :(\n");
     i2cdrvClearDMA(i2c);
     //DEBUG_PRINT("halfway :(\n");
@@ -536,7 +534,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
       // Enable the Transfer Complete interrupt
       DMA_ITConfig(i2c->def->dmaRxStream, DMA_IT_TC | DMA_IT_TE, ENABLE);
       I2C_DMACmd(i2c->def->i2cPort, ENABLE); // Enable before ADDR clear
-      DMA_Cmd(i2c->def->dmaRxStream, ENABLE);
+      //DMA_Cmd(i2c->def->dmaRxStream, ENABLE); //DMA_IS_NOT_ENABLED?
 
       __DMB();                         // Make sure instructions (clear address) are in correct order
       SR2 = i2c->def->i2cPort->SR2;    // clear ADDR
@@ -668,7 +666,6 @@ static void i2cdrvDmaIsrHandler(I2cDrv* i2c)
     i2cNotifyClient(i2c);
     i2cTryNextMessage(i2c);
   }
-  DEBUG_PRINT("\n");
 }
 
 
