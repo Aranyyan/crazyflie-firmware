@@ -188,10 +188,10 @@ int configblockInit(void)
   if (cb_ok == false)
   {
     // Copy default data to used structure.
-    DEBUG_PRINT("Going to write the default configblock\n");
-    uint8_t i;
+    DEBUG_PRINT("Going to write the default configblock (%x bytes)\n", sizeof(configblock));
+    /*uint8_t i;
     for(i = 0; i < sizeof(configblock); ++i)
-      DEBUG_PRINT("0x%x, ", ((uint8_t *)&configblockDefault)[i]);
+      DEBUG_PRINT("0x%x, ", ((uint8_t *)&configblockDefault)[i]);*/
     memcpy((uint8_t *)&configblock, (uint8_t *)&configblockDefault, sizeof(configblock));
     // Write default configuration to eeprom
     if (configblockWrite(&configblockDefault))
