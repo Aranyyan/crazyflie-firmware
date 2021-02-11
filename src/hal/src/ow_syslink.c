@@ -154,7 +154,7 @@ static bool owSyslinkTransfer(uint8_t type, uint8_t length)
   DEBUG_PRINT("About to send via syslinkSendPacket\n");
   syslinkSendPacket(&slp);
   // Wait for reply
-  if (xSemaphoreTake(waitForReply, M2T(5000)) == pdTRUE)
+  if (xSemaphoreTake(waitForReply, M2T(5000)) == pdTRUE) // gives semaphore only in owSyslinkRecieve
   //if (xSemaphoreTake(waitForReply, portMAX_DELAY))
   {
     // We have now got a reply and *owCmd has been filled with data

@@ -49,9 +49,9 @@ void owCommonInit() {
 
   DEBUG_PRINT("owCommonInit\n");
   owScan(&memHandlerDef.nrOfMems);
-  DEBUG_PRINT("owScan passed\n");
+  DEBUG_PRINT("After owScan\n");
   memoryRegisterOwHandler(&memHandlerDef);
-  DEBUG_PRINT("memoryRegisterOwHandler passed\towCommonInit finished!\n");
+  DEBUG_PRINT("After memoryRegisterOwHandler\towCommonInit finished!\n");
 
   isInit = true;
 }
