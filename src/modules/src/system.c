@@ -107,7 +107,7 @@ void systemInit(void)
   canStartMutex = xSemaphoreCreateMutexStatic(&canStartMutexBuffer);
   xSemaphoreTake(canStartMutex, portMAX_DELAY);
 
-  usblinkInit();
+  //usblinkInit();
   //DEBUG_PRINT("usblink init\n");
   sysLoadInit();
   //DEBUG_PRINT("sysLoad init\n");
@@ -192,6 +192,7 @@ void systemTask(void *arg)
   //Init the high-levels modules
   systemInit();
   DEBUG_PRINT("Passed through systemInit()\n");
+  while(1);
   commInit(); // Radio?
   //DEBUG_PRINT("comm init\n");
   commanderInit(); // ???
@@ -246,6 +247,7 @@ void systemTask(void *arg)
   DEBUG_PRINT("%u\n",pass);
   pass &= peerLocalizationTest();
   DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("After all tests!\n");
 
   //Start the firmware
   if(pass)

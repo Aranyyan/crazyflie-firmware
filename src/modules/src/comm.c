@@ -1,6 +1,6 @@
 /*
- *    ||          ____  _ __                           
- * +------+      / __ )(_) /_______________ _____  ___ 
+ *    ||          ____  _ __
+ * +------+      / __ )(_) /_______________ _____  ___
  * | 0xBC |     / __  / / __/ ___/ ___/ __ `/_  / / _ \
  * +------+    / /_/ / / /_/ /__/ /  / /_/ / / /_/  __/
  *  ||  ||    /_____/_/\__/\___/_/   \__,_/ /___/\___/
@@ -48,8 +48,8 @@ void commInit(void)
   if (isInit)
     return;
 
-  uartslkInit();
-  radiolinkInit();
+  uartslkInit(); //drivers/src/uart_syslink.c
+  radiolinkInit(); //hal/src/radiolink.c
 
   /* These functions are moved to be initialized early so
    * that DEBUG_PRINT can be used early */
@@ -58,11 +58,11 @@ void commInit(void)
 
   crtpSetLink(radiolinkGetLink());
 
-  crtpserviceInit();
-  platformserviceInit();
-  logInit();
-  paramInit();
-  locSrvInit();
+  crtpserviceInit(); //modules/src/crtpservice.c
+  platformserviceInit(); //modules/src/platformservice.c
+  logInit();  //modules/src/log.c
+  paramInit(); //modules/src/param.c
+  locSrvInit(); //modules/src/crtp_localization_service.c
 
   //setup CRTP communication channel
   //TODO: check for USB first and prefer USB over radio
@@ -70,21 +70,20 @@ void commInit(void)
   //  crtpSetLink(usbGetLink);
   //else if(radiolinkTest())
   //  crtpSetLink(radiolinkGetLink());
-  
+
   isInit = true;
 }
 
 bool commTest(void)
 {
   bool pass=isInit;
-  
+
   pass &= radiolinkTest();
   pass &= crtpTest();
   pass &= crtpserviceTest();
   pass &= platformserviceTest();
   pass &= consoleTest();
   pass &= paramTest();
-  
+
   return pass;
 }
-
