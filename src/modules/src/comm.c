@@ -41,10 +41,7 @@
 #include "syslink.h"
 #include "crtp_localization_service.h"
 
-#include "debug.h"
-
 static bool isInit;
-bool commTest(void);
 
 void commInit(void)
 {
@@ -75,7 +72,6 @@ void commInit(void)
   //  crtpSetLink(radiolinkGetLink());
 
   isInit = true;
-  commTest();
 }
 
 bool commTest(void)
@@ -83,17 +79,11 @@ bool commTest(void)
   bool pass=isInit;
 
   pass &= radiolinkTest();
-  DEBUG_PRINT("Running commTest:\n%d\n",pass);
   pass &= crtpTest();
-  DEBUG_PRINT("%d\n",pass);
   pass &= crtpserviceTest();
-  DEBUG_PRINT("%d\n",pass);
   pass &= platformserviceTest();
-  DEBUG_PRINT("%d\n",pass);
   pass &= consoleTest();
-  DEBUG_PRINT("%d\n",pass);
   pass &= paramTest();
-  DEBUG_PRINT("%d\n",pass);
 
   return pass;
 }
