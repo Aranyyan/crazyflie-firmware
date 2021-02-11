@@ -192,7 +192,6 @@ void systemTask(void *arg)
   //Init the high-levels modules
   systemInit();
   DEBUG_PRINT("Passed through systemInit()\n");
-  while(1);
   commInit(); // Radio?
   //DEBUG_PRINT("comm init\n");
   commanderInit(); // ???
