@@ -44,6 +44,7 @@
 #include "debug.h"
 
 static bool isInit;
+bool commTest(void);
 
 void commInit(void)
 {
