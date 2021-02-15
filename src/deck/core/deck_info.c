@@ -36,8 +36,8 @@
 #include "crc.h"
 #include "debug.h"
 #include "static_mem.h"
-
-#ifdef DEBUG
+// CHANGED THIS REMEMBER TO CHANGE IT BACK!!!!!!!!!!!! FROM ifdef TO ifndef!!!!!
+#ifndef DEBUG
   #define DECK_INFO_DBG_PRINT(fmt, ...)  DEBUG_PRINT(fmt, ## __VA_ARGS__)
 #else
   #define DECK_INFO_DBG_PRINT(...)
