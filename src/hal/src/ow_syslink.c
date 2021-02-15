@@ -135,6 +135,7 @@ void owSyslinkRecieve(SyslinkPacket *slp)
       break;
     default:
       // Unknown reply
+      DEBUG_PRINT("Unknown reply: t:%X n:%d:%X\n", slp->type, owCmdBuf.nmem, owCmdBuf.info.memId[0]);
       owDataIsValid = false;
       break;
   }
