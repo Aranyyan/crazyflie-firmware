@@ -130,7 +130,7 @@ void owSyslinkRecieve(SyslinkPacket *slp)
     case SYSLINK_OW_READ:
     case SYSLINK_OW_WRITE:
       memcpy(&owCmdBuf, slp->data, sizeof(OwCommand));
-      //DEBUG_PRINT("t:%X n:%d:%X\n", slp->type, owCmdBuf.nmem, owCmdBuf.info.memId[0]);
+      DEBUG_PRINT("t:%X n:%d:%X\n", slp->type, owCmdBuf.nmem, owCmdBuf.info.memId[0]);
       owDataIsValid = true;
       break;
     default:
