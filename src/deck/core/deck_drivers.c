@@ -32,7 +32,7 @@
 #include "deck.h"
 #include "debug.h"
 
-#ifdef DEBUG
+#ifndef DEBUG
   #define DECK_DRV_DBG_PRINT(fmt, ...)  DEBUG_PRINT(fmt, ## __VA_ARGS__)
 #else
   #define DECK_DRV_DBG_PRINT(...)
@@ -57,7 +57,7 @@ static void deckdriversInit() {
     init = true;
 
     DECK_DRV_DBG_PRINT("Found %d drivers\n", driversLen);
-    DEBUG_PRINT("Found %d drivers\n", driversLen);
+    //DEBUG_PRINT("Found %d drivers\n", driversLen);
     for (i=0; i<driversLen; i++) {
       if (drivers[i]->name) {
         DECK_DRV_DBG_PRINT("VID:PID %02x:%02x (%s)\n", drivers[i]->vid, drivers[i]->pid, drivers[i]->name);
