@@ -197,19 +197,19 @@ void systemTask(void *arg)
   commanderInit(); // ???
   //DEBUG_PRINT("commander init\n");
 
-  //StateEstimatorType estimator = anyEstimator;
+  StateEstimatorType estimator = anyEstimator;
   estimatorKalmanTaskInit(); // Software, functional but not usable without sensors
   //DEBUG_PRINT("Kalman estimator init\n"),
   deckInit(); // 1-wire...?
   DEBUG_PRINT("deck init\n");
-  //estimator = deckGetRequiredEstimator();
+  estimator = deckGetRequiredEstimator();
   //DEBUG_PRINT("Got estimator...");
-//  stabilizerInit(estimator);
+  stabilizerInit(estimator);
 //  DEBUG_PRINT("stabilizer init");
-//  if (deckGetRequiredLowInterferenceRadioMode() && platformConfigPhysicalLayoutAntennasAreClose())
-//  {
-//    platformSetLowInterferenceRadioMode();
-//  }
+  if (deckGetRequiredLowInterferenceRadioMode() && platformConfigPhysicalLayoutAntennasAreClose())
+  {
+    platformSetLowInterferenceRadioMode();
+  }
   soundInit(); // Software
   //DEBUG_PRINT("sound init\n");
   memInit(); // Uses CRTP
