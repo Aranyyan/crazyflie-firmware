@@ -203,9 +203,9 @@ void systemTask(void *arg)
   deckInit(); // 1-wire...?
   DEBUG_PRINT("deck init\n");
   estimator = deckGetRequiredEstimator();
-  //DEBUG_PRINT("Got estimator...");
+  DEBUG_PRINT("Got estimator...\n");
   stabilizerInit(estimator);
-//  DEBUG_PRINT("stabilizer init");
+  DEBUG_PRINT("stabilizer init\n");
   if (deckGetRequiredLowInterferenceRadioMode() && platformConfigPhysicalLayoutAntennasAreClose())
   {
     platformSetLowInterferenceRadioMode();
