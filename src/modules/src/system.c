@@ -135,6 +135,7 @@ void systemInit(void)
   configblockInit();
   DEBUG_PRINT("config init\n");
   storageInit(); // Only semaphore
+  while(1);
   //DEBUG_PRINT("storage init\n");
   workerInit(); // Seems to be only software
   //DEBUG_PRINT("worker init\n");

@@ -132,9 +132,8 @@ bool eepromTestConnection(void)
   if (!isInit)
     return false;
 
-  DEBUG_PRINT("Before i2cdevRead16...\n");
   status = i2cdevRead16(I2Cx, devAddr, 0, 1, &tmp);
-  //DEBUG_PRINT(" Passed!\n");
+  DEBUG_PRINT("Read value 0x%X in eepromTestConnection!\n", tmp);
 
   return status;
 }
@@ -179,6 +178,7 @@ bool eepromWriteBuffer(const uint8_t* buffer, uint16_t writeAddr, uint16_t len)
 
     // Writing page
     for (int retry = 0; retry < 10; retry++) {
+      DEBUG_PRINT("Attempting to write to EEPROM, length %u\n", pageIndex);
       status = i2cdevWrite16(I2Cx, devAddr, pageAddress, pageIndex, pageBuffer);
       if (status) {
         break;

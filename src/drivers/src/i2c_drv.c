@@ -219,8 +219,9 @@ static void i2cdrvStartTransfer(I2cDrv *i2c)
     i2c->DMAStruct.DMA_Memory0BaseAddr = (uint32_t)i2c->txMessage.buffer;
     DMA_Init(i2c->def->dmaRxStream, &i2c->DMAStruct);
     DMA_Cmd(i2c->def->dmaRxStream, ENABLE);
+  } else {
+    DEBUG_PRINT("Will send data, 0x%lx bytes at address 0x%lx\n", i2c->txMessage.messageLength, (uint32_t)i2c->txMessage.buffer);
   }
-
   I2C_ITConfig(i2c->def->i2cPort, I2C_IT_BUF, DISABLE);
   I2C_ITConfig(i2c->def->i2cPort, I2C_IT_EVT, ENABLE);
   i2c->def->i2cPort->CR1 = (I2C_CR1_START | I2C_CR1_PE);
@@ -431,7 +432,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
   memcpy((char*)&i2c->txMessage, (char*)message, sizeof(I2cMessage));
   // We can now start the ISR sending this message.
   i2cdrvStartTransfer(i2c);
-  DEBUG_PRINT("i2c_drv.c:Transfer of %lu units of data started!\t", message->messageLength);
+  DEBUG_PRINT("i2c_drv.c:Transfer of %lu units of data started!\n", message->messageLength);
   // Wait for transaction to be done
   /*static bool first = true;
   if(first){
@@ -469,6 +470,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
 
   // read the status register first
   SR1 = i2c->def->i2cPort->SR1;
+  DEBUG_PRINT("Handling event with SR1:0x%2X\n", SR1);
 
 #ifdef I2CDRV_DEBUG_LOG_EVENTS
   // Debug code
@@ -508,6 +510,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
       {
         if (i2c->txMessage.isInternal16bit)
         {
+          DEBUG_PRINT("Sending addresses 0x%x via I2C\n", i2c->txMessage.internalAddress);
           I2C_SendData(i2c->def->i2cPort, (i2c->txMessage.internalAddress & 0xFF00) >> 8);
           I2C_SendData(i2c->def->i2cPort, (i2c->txMessage.internalAddress & 0x00FF));
         }
@@ -518,6 +521,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
         i2c->txMessage.internalAddress = I2C_NO_INTERNAL_ADDRESS;
       }
       I2C_ITConfig(i2c->def->i2cPort, I2C_IT_BUF, ENABLE);        // allow us to have an EV7
+      DEBUG_PRINT("Control register 2 for I2C: 0x%x\n", i2c->def->i2cPort->CR2);
     }
     else // Reading, start DMA transfer
     {
@@ -545,6 +549,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
   {
     // READS STATUS REGISTER 2
     SR2 = i2c->def->i2cPort->SR2;
+    DEBUG_PRINT("BTF, SR2: 0x%2X", SR2);
     if (SR2 & I2C_SR2_TRA) // In write mode?
     {
       if (i2c->txMessage.direction == i2cRead) // internal address read
@@ -594,6 +599,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
     }
     else
     {
+      DEBUG_PRINT("Sending one byte 0x%x over I2C\n", i2c->txMessage.buffer[i2c->messageIndex]);
       I2C_SendData(i2c->def->i2cPort, i2c->txMessage.buffer[i2c->messageIndex++]);
       if(i2c->messageIndex == i2c->txMessage.messageLength)
       {
