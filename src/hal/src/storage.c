@@ -45,7 +45,7 @@
 
 // Memory organization
 
-// Low level memory access 
+// Low level memory access
 
 // ToDo: Shall we handle partition elsewhere?
 #define KVE_PARTITION_START (1024)
