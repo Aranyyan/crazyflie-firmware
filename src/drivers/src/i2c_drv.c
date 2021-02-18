@@ -588,7 +588,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
       I2C_ITConfig(i2c->def->i2cPort, I2C_IT_BUF, DISABLE);   // disable RXE to get BTF
     }
   }
-  // Byte ready to be transmitted
+  // Byte ready to be transmittedhand
   else if (SR1 & I2C_SR1_TXE)
   {
     if (i2c->txMessage.direction == i2cRead)
@@ -599,7 +599,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
     }
     else
     {
-      DEBUG_PRINT("Sending one byte 0x%x over I2C\n", i2c->txMessage.buffer[i2c->messageIndex]);
+      DEBUG_PRINT("EVENT HANDLED! With TXE set. Sending one byte 0x%x over I2C, messageIndex %lu with messageLength %lu.\n", i2c->txMessage.buffer[i2c->messageIndex], i2c->messageIndex, i2c->txMessage.messageLength);
       I2C_SendData(i2c->def->i2cPort, i2c->txMessage.buffer[i2c->messageIndex++]);
       if(i2c->messageIndex == i2c->txMessage.messageLength)
       {
