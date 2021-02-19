@@ -221,31 +221,31 @@ void systemTask(void *arg)
   DEBUG_PRINT("Time to run tests!\n");
   //Test the modules
   pass &= systemTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("system %u\n",pass);
   pass &= configblockTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("configblock %u\n",pass);
   pass &= storageTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("storage %u\n",pass);
   pass &= commTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("comm %u\n",pass);
   pass &= commanderTest();
-  DEBUG_PRINT("%u\n",pass);
-  pass &= stabilizerTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("commander %u\n",pass);
+  //pass &= stabilizerTest();
+  //DEBUG_PRINT("stabilizer %u\n",pass);
   pass &= estimatorKalmanTaskTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("estimatorKalman %u\n",pass);
   pass &= deckTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("deck %u\n",pass);
   pass &= soundTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("sound %u\n",pass);
   pass &= memTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("mem %u\n",pass);
   pass &= watchdogNormalStartTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("watchdogNormalStart %u\n",pass);
   pass &= cfAssertNormalStartTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("cfAssertNormalStart %u\n",pass);
   pass &= peerLocalizationTest();
-  DEBUG_PRINT("%u\n",pass);
+  DEBUG_PRINT("peerLocalization %u\n",pass);
   DEBUG_PRINT("After all tests!\n");
 
   //Start the firmware
