@@ -591,7 +591,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
     }
     else
     {
-      DEBUG_PRINT("With TXE set. Sending 0x%x over I2C, messageIndex %lu with messageLength %lu.\n", i2c->txMessage.buffer[i2c->messageIndex], i2c->messageIndex, i2c->txMessage.messageLength);
+      DEBUG_PRINT("With TXE set. Sending 0x%02x over I2C, messageIndex %lu with messageLength %lu.\n", i2c->txMessage.buffer[i2c->messageIndex], i2c->messageIndex, i2c->txMessage.messageLength);
       I2C_SendData(i2c->def->i2cPort, i2c->txMessage.buffer[i2c->messageIndex++]);
       if(i2c->messageIndex == i2c->txMessage.messageLength)
       {
