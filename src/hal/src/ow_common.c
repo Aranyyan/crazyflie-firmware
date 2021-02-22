@@ -48,7 +48,6 @@ void owCommonInit() {
   }
 
   owScan(&memHandlerDef.nrOfMems);
-  DEBUG_PRINT("After owScan in owCommonInit, with nrOfMems %X\n", memHandlerDef.nrOfMems);
   memoryRegisterOwHandler(&memHandlerDef);
 
   isInit = true;

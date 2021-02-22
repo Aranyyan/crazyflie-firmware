@@ -130,7 +130,7 @@ void owSyslinkRecieve(SyslinkPacket *slp)
     case SYSLINK_OW_READ:
     case SYSLINK_OW_WRITE:
       memcpy(&owCmdBuf, slp->data, sizeof(OwCommand));
-      DEBUG_PRINT("t:%X n:%d:%X\n", slp->type, owCmdBuf.nmem, owCmdBuf.info.memId[0]);
+      //DEBUG_PRINT("t:%X n:%d:%X\n", slp->type, owCmdBuf.nmem, owCmdBuf.info.memId[0]); //Note how the owCmdBuf struct works!
       owDataIsValid = true;
       break;
     default:
@@ -152,7 +152,7 @@ static bool owSyslinkTransfer(uint8_t type, uint8_t length)
   slp.length = length;
   memcpy(slp.data, &owCmdBuf, length);
 
-  DEBUG_PRINT("About to send via syslinkSendPacket\n");
+  //DEBUG_PRINT("About to send via syslinkSendPacket\n");
   syslinkSendPacket(&slp);
   // Wait for reply
   if (xSemaphoreTake(waitForReply, M2T(5000)) == pdTRUE) // gives semaphore only in owSyslinkRecieve
