@@ -160,11 +160,8 @@ void sensorsInit(void) {
   DEBUG_PRINT("Forcing sensors to " xstr(SENSORS_FORCE) "\n");
 #endif
 
-  DEBUG_PRINT("Before findImplementation... ");
-
   activeImplementation = findImplementation(sensorImplementation);
 
-  DEBUG_PRINT("Before init...\n");
   activeImplementation->init();
 
   isInit = true;
