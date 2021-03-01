@@ -208,7 +208,6 @@ void sensorsSetAccMode(accModes accMode) {
 }
 
 void __attribute__((used)) EXTI14_Callback(void) {
-  DEBUG_PRINT("EXTI14_Callback!\n");
   activeImplementation->dataAvailableCallback();
 }
 
