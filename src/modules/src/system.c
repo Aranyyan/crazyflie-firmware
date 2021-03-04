@@ -234,8 +234,8 @@ void systemTask(void *arg)
   DEBUG_PRINT("comm %u\n",pass);
   pass &= commanderTest();
   DEBUG_PRINT("commander %u\n",pass);
-  //pass &= stabilizerTest();
-  //DEBUG_PRINT("stabilizer %u\n",pass);
+  pass &= stabilizerTest();
+  DEBUG_PRINT("stabilizer %u\n",pass);
   pass &= estimatorKalmanTaskTest();
   DEBUG_PRINT("estimatorKalman %u\n",pass);
   pass &= deckTest();
